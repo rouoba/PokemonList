@@ -10,13 +10,16 @@ import UIKit
 class HomeViewController: UIViewController {
 
     @IBOutlet weak var myTableView: UITableView!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        myTableView.delegate = self
-        myTableView.dataSource = self
+        
         myTableView.register(UINib(nibName: "PokemonCell", bundle: .main), forCellReuseIdentifier: "cell")
+        
+        NetworkManager.shared.fetchPokemonNamesAndURLs(storeIn: &results, and: &listOfPokemonNamesAndURLS)
+        NetworkManager.shared.fetchPokemonData(first: 0, last: 29)
     }
 
 
@@ -29,13 +32,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return listOPokemonData.count
     }
     
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = myTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        guard let cell = myTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? PokemonCell else {return UITableViewCell()}
+        cell.name.text = results.results[indexPath.row].name
         return cell
     }
     
