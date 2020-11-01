@@ -7,14 +7,14 @@
 
 import UIKit
 
-var results: Result = Result()
-var listOfPokemonNamesAndURLS: [Pokemon] = []
-var listOPokemonData: [PokemonData] = []
-var listOfPokemonCells: [UIImage?, String, String]
+var maximumNumberOfPokemon = 150
+var myResults: Result = Result()
+var listOfPokemonData: [PokemonData?] = [PokemonData?](repeating: nil, count: maximumNumberOfPokemon)
+var listOfPokemonSprites = [UIImage?](repeating: nil, count: maximumNumberOfPokemon)
 
 struct Result: Decodable {
-    var next: String = ""
-    var previous: String? = ""
+    var next: String?
+    var previous: String?  //not necessary. only needs next when prefetching
     var results: [Pokemon] = []
 }
 
@@ -28,48 +28,30 @@ struct Pokemon: Decodable {
 struct PokemonData: Decodable {
     var abilities: [AbilityType]
     var moves: [MoveType]
-    var species: SpeciesType
+    var name: String
+    var species: Name
     var sprites: SpriteType
     var types: [Type]
 }
 
-struct AbilityType: Decodable {
-    var ability: ability
+
+
+struct Name: Decodable { 
+    var name: String
 }
 
-struct ability: Decodable {
-    var name: String
+struct AbilityType: Decodable {
+    var ability: Name
 }
 
 struct MoveType: Decodable {
-    var move: move
-}
-
-struct move: Decodable {
-    var name: String
-}
-
-struct SpeciesType: Decodable {
-    var name: String
+    var move: Name
 }
 
 struct SpriteType: Decodable {
     var front_default: String
-    var other: OtherType
-}
-
-struct OtherType:Decodable {
-    var dream_world: Dream_worldType
-}
-
-struct Dream_worldType: Decodable {
-    var front_default: String
 }
 
 struct Type: Decodable {
-    var type: type
-}
-
-struct type: Decodable {
-    var name: String
+    var type: Name
 }

@@ -5,7 +5,7 @@
 //  Created by Rene Ouoba on 10/29/20.
 //
 
-import Foundation
+import UIKit
 
 final class NetworkManager {
     static var shared: NetworkManager = NetworkManager()
@@ -17,44 +17,94 @@ final class NetworkManager {
     }
 }
 
+
+
 extension NetworkManager {
     
-    func fetchPokemonNamesAndURLs(storeIn: inout Result, and: inout [Pokemon]) {
-        guard let url = URL(string: myUrl) else {return}
-        do {
-            let data = try Data(contentsOf: url)
-            print(data)
-            let jsonResults = try JSONDecoder().decode(Result.self, from: data)
-
-            storeIn.next = jsonResults.next
-            storeIn.previous = jsonResults.previous
-            storeIn.results = jsonResults.results
-            for index in 0...jsonResults.results.count-1 {
-                and.append(jsonResults.results[index])
-            }
-        } catch let error {
-            //Display alert on screen
-            print(error)
-        }
-    }
-    
-    
-    func fetchPokemonData(first: Int, last: Int) {
-        // fetch pokemon data from listOfPokemonNamesAndURLS[index].url and store in listOPokemonData[index]
+    func fetchPokemonNamesAndURLs(with aUrl: String, completion: @escaping (Result?) -> ()) {
+        guard let url = URL(string: aUrl) else {
+            completion(nil)
+            return}
         
-        for index in first...last {
-            let urlString = listOfPokemonNamesAndURLS[index].url
-            guard let url = URL(string: urlString) else {return}
+        session.dataTask(with: url) { (data, response, error) in
+            if let _ = error {
+                completion(nil)
+//                self.displayAlert(messageTitle: "Error", messageContent: "List of Pokemon could not be retieved. Check internet connection")
+                return
+            }
+            guard let data = data else {
+                completion(nil)
+                return
+            }
             do {
-                let data = try Data(contentsOf: url)
-                let jsonResults = try JSONDecoder().decode(PokemonData.self, from: data)
-
-                listOPokemonData.append(jsonResults)
+                let dataDownloaded = try JSONDecoder().decode(Result.self, from: data)
+                completion(dataDownloaded)
             } catch let error {
-                //Display alert on screen
                 print(error)
             }
+        }.resume()
+    }
+    
+    
+    func fetchPokemonData(atPosition position: Int, completion: @escaping (PokemonData?) -> ()) {
+        let urlString = myResults.results[position].url
+        guard let url = URL(string: urlString) else {return}
+        
+        session.dataTask(with: url) { (data, response, error) in
+            if let _ = error {
+                completion(nil)
+//                self.displayAlert(messageTitle: "Error", messageContent: "List of Pokemon could not be retieved. Check internet connection")
+                return
+            }
+            
+            guard let data = data else {
+                completion(nil)
+                return
+            }
+            
+            do {
+                let pokemonDataDownloaded = try JSONDecoder().decode(PokemonData.self, from: data)
+                completion(pokemonDataDownloaded)
+            } catch let error {
+                print(error) 
+            }
+        }.resume()
+    }
+    
+    
+    func fetchSprites(atPosition position: Int, completion: @escaping (UIImage?) -> ()) {
+        guard let urlString = listOfPokemonData[position]?.sprites.front_default else {return}
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
         }
         
+        session.dataTask(with: url) { (data, response, error) in
+            if let _ = error {
+//                self.displayAlert(messageTitle: "Error", messageContent: "List of Pokemon could not be retieved. Check internet connection")
+                completion(nil)
+                return
+            }
+            guard let data = data else {
+                completion(nil)
+                return
+            }
+            completion(UIImage(data: data))
+            return
+        }.resume()
     }
+    
+//    func displayAlert(messageTitle: String, messageContent: String) {
+//        let alertController = UIAlertController(title: messageTitle, message: messageContent, preferredStyle: .alert)
+//        let defaultAction = UIAlertAction(title: "Close", style: .default, handler: nil)
+//        alertController.addAction(defaultAction)
+//        present(alertController, animated: true, completion: nil)
+        
+//        let alert = UIAlertController(title: "Did you bring your towel?", message: "It's recommended you bring your towel before continuing.", preferredStyle: .alert)
+//
+//        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
+//        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+//
+//        self.present(alert, animated: true)
+//    }
 }

@@ -12,10 +12,12 @@ class PokemonCell: UITableViewCell {
     @IBOutlet weak var sprite: UIImageView!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var element: UILabel!
+    @IBOutlet weak var cellContentArea: UIStackView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        cellContentArea.layer.cornerRadius = 20
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
