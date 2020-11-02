@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,7 +19,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JK6-sH-ccG">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <color key="backgroundColor" red="1" green="0.99852625029999997" blue="0.94222017339999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="H8F-0R-oXW"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="lKt-fL-6vI"/>
@@ -45,7 +46,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" red="1" green="0.99852625029999997" blue="0.94222017339999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NFs-qz-hfn" secondAttribute="trailing" constant="20" id="2Px-9v-tM4"/>
                             <constraint firstItem="NFs-qz-hfn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="KdI-eK-F4c"/>
@@ -91,7 +92,6 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2rA-gS-AsJ">
                                                 <rect key="frame" x="0.0" y="79" width="414" height="74"/>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -123,7 +123,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
-                                                                <color key="backgroundColor" red="1" green="0.99852625029999997" blue="0.94222017339999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                <color key="backgroundColor" systemColor="systemTealColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="trailing" secondItem="UoN-r6-X91" secondAttribute="trailing" id="5nf-j1-ojv"/>
                                                                     <constraint firstItem="UoN-r6-X91" firstAttribute="leading" secondItem="P3c-94-jeJ" secondAttribute="leading" id="LFE-aF-RlK"/>
@@ -132,7 +132,7 @@
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="1" green="0.99852625029999997" blue="0.94222017339999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <color key="backgroundColor" systemColor="systemTealColor"/>
                                                         <constraints>
                                                             <constraint firstItem="P3c-94-jeJ" firstAttribute="width" secondItem="0Dy-hD-wT5" secondAttribute="width" id="QAM-Jn-OyB"/>
                                                             <constraint firstAttribute="bottom" secondItem="P3c-94-jeJ" secondAttribute="bottom" id="aRr-tV-SC1"/>
@@ -144,7 +144,6 @@
                                                         <viewLayoutGuide key="frameLayoutGuide" id="VgU-gp-NRM"/>
                                                     </scrollView>
                                                 </subviews>
-                                                <color key="backgroundColor" red="1" green="0.99852625029999997" blue="0.94222017339999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstItem="0Dy-hD-wT5" firstAttribute="leading" secondItem="NjO-XW-QHb" secondAttribute="leading" constant="20" id="DKs-4o-N1Y"/>
                                                     <constraint firstAttribute="bottom" secondItem="0Dy-hD-wT5" secondAttribute="bottom" constant="10" id="f3G-yd-EWo"/>
@@ -162,7 +161,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" red="1" green="0.99852625029999997" blue="0.94222017339999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="backgroundColor" systemColor="systemTealColor"/>
                                                 <constraints>
                                                     <constraint firstItem="K17-p7-YDn" firstAttribute="leading" secondItem="KmQ-Yl-tuk" secondAttribute="leading" constant="20" id="013-Tf-Ffp"/>
                                                     <constraint firstAttribute="trailing" secondItem="K17-p7-YDn" secondAttribute="trailing" constant="20" id="OWT-nS-Bji"/>
@@ -171,6 +170,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
+                                        <color key="backgroundColor" systemColor="systemTealColor"/>
                                         <constraints>
                                             <constraint firstItem="KmQ-Yl-tuk" firstAttribute="height" secondItem="iXg-KN-892" secondAttribute="height" multiplier="0.3" id="CNo-40-lEP"/>
                                         </constraints>
@@ -183,7 +183,7 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="eBR-Nn-Cgi"/>
-                        <color key="backgroundColor" red="1" green="0.9985262502720158" blue="0.9422201734458262" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" systemColor="systemTealColor"/>
                         <constraints>
                             <constraint firstItem="eBR-Nn-Cgi" firstAttribute="bottom" secondItem="Rq9-0X-XEC" secondAttribute="bottom" id="3PQ-H9-1QV"/>
                             <constraint firstItem="eBR-Nn-Cgi" firstAttribute="trailing" secondItem="Rq9-0X-XEC" secondAttribute="trailing" id="HXt-Ba-0t8"/>
@@ -226,5 +226,11 @@
     </scenes>
     <resources>
         <image name="star.fill" catalog="system" width="128" height="116"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

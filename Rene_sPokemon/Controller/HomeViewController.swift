@@ -19,6 +19,7 @@ class HomeViewController: UIViewController {
     let increment = 30
     var numberOfPokemonDownloaded = 0
     
+    var userDefaults = UserDefaults()
     
     override func viewDidLoad() {
         super.viewDidLoad()
