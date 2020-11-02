@@ -25,11 +25,20 @@ class HomeViewController: UIViewController {
     }
     
     
+   
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let indexPath = sender as? IndexPath else {return}
         
         guard let vc = segue.destination as? DetailsViewController else { return }
         guard let pokemonSelected = listOfPokemonData[indexPath.row] else { return }
+        preparePokenonData(for: vc, with: indexPath, and: pokemonSelected)
+    }
+    
+    
+    
+    //Mark:- Helpers
+    fileprivate func preparePokenonData(for vc: DetailsViewController, with indexPath: IndexPath, and pokemonSelected: PokemonData) {
         var types = "Type(s): "
         var moves = "Moves: "
         var abilities = "Abilities: "
@@ -37,7 +46,7 @@ class HomeViewController: UIViewController {
         vc.spriteImage = listOfPokemonSprites[indexPath.row]
         vc.number = "No \(indexPath.row+1)"
         vc.name = pokemonSelected.name
-
+        
         types += pokemonSelected.types[0].type.name
         if pokemonSelected.types.count > 1 {
             for index in 1...pokemonSelected.types.count-1 {
@@ -45,13 +54,13 @@ class HomeViewController: UIViewController {
             }
         }
         vc.types = types
-
+        
         moves += pokemonSelected.moves[0].move.name
         for index in 1...pokemonSelected.moves.count-1 {
             moves += ", " + pokemonSelected.moves[index].move.name
         }
         vc.moves = moves
-
+        
         abilities += pokemonSelected.abilities[0].ability.name
         for index in 1...pokemonSelected.abilities.count-1 {
             abilities += ", " + pokemonSelected.abilities[index].ability.name
@@ -61,7 +70,6 @@ class HomeViewController: UIViewController {
     
     
     
-    //Mark:- Helpers
     func downloadData(from: Int, to: Int, using aUrl: String) {
         dispatchGroup1.enter()
         NetworkManager.shared.fetchPokemonNamesAndURLs(with: aUrl) { [weak self] dataDownloaded in
@@ -128,7 +136,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         if listOfPokemonData.count > indexPath.row {
             cell.name.text = listOfPokemonData[indexPath.row]?.name
-            cell.element.text = listOfPokemonData[indexPath.row]?.types[0].type.name ?? ""
+            cell.element.text = "Main type: \(listOfPokemonData[indexPath.row]?.types[0].type.name ?? "")"
         }
         if listOfPokemonSprites.count > indexPath.row {
             cell.sprite.image = listOfPokemonSprites[indexPath.row]
