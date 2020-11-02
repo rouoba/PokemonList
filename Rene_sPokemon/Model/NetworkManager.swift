@@ -95,12 +95,7 @@ extension NetworkManager {
     }
     
 //    func displayAlert(messageTitle: String, messageContent: String) {
-//        let alertController = UIAlertController(title: messageTitle, message: messageContent, preferredStyle: .alert)
-//        let defaultAction = UIAlertAction(title: "Close", style: .default, handler: nil)
-//        alertController.addAction(defaultAction)
-//        present(alertController, animated: true, completion: nil)
-        
-//        let alert = UIAlertController(title: "Did you bring your towel?", message: "It's recommended you bring your towel before continuing.", preferredStyle: .alert)
+//        let alert = UIAlertController(title: messageTitle, message: messageContent, preferredStyle: .alert)
 //
 //        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
 //        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
