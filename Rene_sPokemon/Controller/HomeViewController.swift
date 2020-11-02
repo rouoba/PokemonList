@@ -10,6 +10,7 @@ import UIKit
 class HomeViewController: UIViewController {
 
     @IBOutlet weak var myTableView: UITableView!
+    @IBOutlet weak var favoriteView: UIView!
     
     var dispatchGroup = DispatchGroup()
     
@@ -43,7 +44,7 @@ class HomeViewController: UIViewController {
     fileprivate func preparePokemonData(for vc: DetailsViewController, with indexPath: IndexPath, and pokemonSelected: PokemonData) {
         var types = "Type(s): "
         var moves = "Moves: "
-        var abilities = "Abilities: "
+        var abilities = "Abilitie(s): "
         
         vc.spriteImage = listOfPokemonSprites[indexPath.row]
         vc.number = "No \(indexPath.row+1)"
@@ -64,8 +65,10 @@ class HomeViewController: UIViewController {
         vc.moves = moves
         
         abilities += pokemonSelected.abilities[0].ability.name
-        for index in 1...pokemonSelected.abilities.count-1 {
-            abilities += ", " + pokemonSelected.abilities[index].ability.name
+        if pokemonSelected.abilities.count > 1 {
+            for index in 1...pokemonSelected.abilities.count-1 {
+                abilities += ", " + pokemonSelected.abilities[index].ability.name
+            }
         }
         vc.abilities = abilities
     }

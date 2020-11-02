@@ -25,10 +25,30 @@
                                     <outlet property="prefetchDataSource" destination="BYZ-38-t0r" id="LpK-Wx-keU"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NFs-qz-hfn">
+                                <rect key="frame" x="364" y="108" width="30" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wIC-ar-FUx">
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                        <state key="normal" image="star.fill" catalog="system"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="6pn-HC-dOk"/>
+                                    <constraint firstAttribute="height" constant="30" id="PsP-W1-gDs"/>
+                                    <constraint firstAttribute="trailing" secondItem="wIC-ar-FUx" secondAttribute="trailing" id="Sbw-CG-VS3"/>
+                                    <constraint firstItem="wIC-ar-FUx" firstAttribute="top" secondItem="NFs-qz-hfn" secondAttribute="top" id="jsg-wg-gKN"/>
+                                    <constraint firstAttribute="bottom" secondItem="wIC-ar-FUx" secondAttribute="bottom" id="ole-oU-TRy"/>
+                                    <constraint firstItem="wIC-ar-FUx" firstAttribute="leading" secondItem="NFs-qz-hfn" secondAttribute="leading" id="qsx-Sb-Mfc"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="1" green="0.99852625029999997" blue="0.94222017339999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NFs-qz-hfn" secondAttribute="trailing" constant="20" id="2Px-9v-tM4"/>
+                            <constraint firstItem="NFs-qz-hfn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="KdI-eK-F4c"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JK6-sH-ccG" secondAttribute="trailing" id="PTo-Ad-PCv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="JK6-sH-ccG" secondAttribute="bottom" id="WEZ-jh-fwd"/>
                             <constraint firstItem="JK6-sH-ccG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="kji-U9-KdN"/>
@@ -37,6 +57,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="List of Pokemon" id="MPe-ag-Y5w"/>
                     <connections>
+                        <outlet property="favoriteView" destination="NFs-qz-hfn" id="qwU-7l-osK"/>
                         <outlet property="myTableView" destination="JK6-sH-ccG" id="qBC-qg-K7a"/>
                         <segue destination="foB-F7-WiI" kind="show" identifier="towardsDetailsView" id="ENf-b4-Gx2"/>
                     </connections>
@@ -70,6 +91,7 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2rA-gS-AsJ">
                                                 <rect key="frame" x="0.0" y="79" width="414" height="74"/>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -202,4 +224,7 @@
             <point key="canvasLocation" x="137.68115942028987" y="93.75"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
+    </resources>
 </document>
