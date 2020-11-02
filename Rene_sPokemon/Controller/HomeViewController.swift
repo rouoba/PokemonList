@@ -11,11 +11,13 @@ class HomeViewController: UIViewController {
 
     @IBOutlet weak var myTableView: UITableView!
     
-    var dispatchGroup1 = DispatchGroup()
+    var dispatchGroup = DispatchGroup()
     
     var indexToPrefetchFrom = 25
     var  currentMaxNoOfPokemon = 30
     let increment = 30
+    var numberOfPokemonDownloaded = 0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,16 +31,16 @@ class HomeViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let indexPath = sender as? IndexPath else {return}
-        
         guard let vc = segue.destination as? DetailsViewController else { return }
+        
         guard let pokemonSelected = listOfPokemonData[indexPath.row] else { return }
-        preparePokenonData(for: vc, with: indexPath, and: pokemonSelected)
+        preparePokemonData(for: vc, with: indexPath, and: pokemonSelected)
     }
     
     
     
     //Mark:- Helpers
-    fileprivate func preparePokenonData(for vc: DetailsViewController, with indexPath: IndexPath, and pokemonSelected: PokemonData) {
+    fileprivate func preparePokemonData(for vc: DetailsViewController, with indexPath: IndexPath, and pokemonSelected: PokemonData) {
         var types = "Type(s): "
         var moves = "Moves: "
         var abilities = "Abilities: "
@@ -71,7 +73,7 @@ class HomeViewController: UIViewController {
     
     
     func downloadData(from: Int, to: Int, using aUrl: String) {
-        dispatchGroup1.enter()
+        dispatchGroup.enter()
         NetworkManager.shared.fetchPokemonNamesAndURLs(with: aUrl) { [weak self] dataDownloaded in
             guard let self = self else {return}
             guard let safeDataDownloaded = dataDownloaded else { return }
@@ -81,15 +83,10 @@ class HomeViewController: UIViewController {
             for index in 0...safeDataDownloaded.results.count - 1 {
                 myResults.results.append(safeDataDownloaded.results[index])
             }
-            self.dispatchGroup1.leave()
-            
-//            DispatchQueue.main.async {
-//                self.myTableView.reloadData()
-//            }
-
+            self.dispatchGroup.leave()
         }
 
-        dispatchGroup1.notify(queue: .main) {
+        dispatchGroup.notify(queue: .main) {
             for index in from...to {
                 NetworkManager.shared.fetchPokemonData(atPosition: index) { [weak self] pokemonDataDownloaded in
                     guard let self = self else { return }
@@ -98,18 +95,20 @@ class HomeViewController: UIViewController {
                     NetworkManager.shared.fetchSprites(atPosition: index) { [weak self] data in
                         guard let self = self else { return }
                         listOfPokemonSprites[index] = data
-                        DispatchQueue.main.async {
-                            self.myTableView.reloadData()
+                        self.numberOfPokemonDownloaded += 1
+                        
+                        if self.numberOfPokemonDownloaded == 30 {
+                            DispatchQueue.main.async {
+                                self.myTableView.reloadData()
+                                self.numberOfPokemonDownloaded = 0
+                            }
                         }
                     }
-                    
-//                    DispatchQueue.main.async {
-//                        self.myTableView.reloadData()
-//                    }
                 }
             }
         }
     }
+    
     
     
     func displayAlert(messageTitle: String, messageContent: String) {
@@ -123,7 +122,7 @@ class HomeViewController: UIViewController {
 
 
 //Mark: - Extension
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return myResults.results.count
@@ -143,15 +142,19 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return cell
     }
-
     
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         //Initially, indexToPrefetchFrom=25 and currentMaxNoOfPokemon=30
-        if currentMaxNoOfPokemon < maximumNumberOfPokemon && indexPath.row == indexToPrefetchFrom && myResults.results.count < currentMaxNoOfPokemon+increment {
-            downloadData(from: currentMaxNoOfPokemon, to: currentMaxNoOfPokemon+increment-1, using: myResults.next!)
-            indexToPrefetchFrom += increment
-            currentMaxNoOfPokemon += increment
+        for indexPath in indexPaths {
+            if indexPath.row == indexToPrefetchFrom && currentMaxNoOfPokemon < maximumNumberOfPokemon && myResults.results.count < currentMaxNoOfPokemon+increment {
+//                print("prefetching")
+                guard let nextPokemonsUrl = myResults.next else {return}
+                downloadData(from: currentMaxNoOfPokemon, to: currentMaxNoOfPokemon+increment-1, using: nextPokemonsUrl)
+                indexToPrefetchFrom += increment
+                currentMaxNoOfPokemon += increment
+            }
         }
     }
     
