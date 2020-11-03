@@ -32,6 +32,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wIC-ar-FUx">
                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                         <state key="normal" image="star.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="displayFavoritePokemon:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WCE-0M-YFw"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -58,7 +61,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="List of Pokemon" id="MPe-ag-Y5w"/>
                     <connections>
-                        <outlet property="favoriteView" destination="NFs-qz-hfn" id="qwU-7l-osK"/>
                         <outlet property="myTableView" destination="JK6-sH-ccG" id="qBC-qg-K7a"/>
                         <segue destination="foB-F7-WiI" kind="show" identifier="towardsDetailsView" id="ENf-b4-Gx2"/>
                     </connections>
@@ -203,7 +205,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R5S-W6-94p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2130.434782608696" y="100.44642857142857"/>
+            <point key="canvasLocation" x="2648" y="94"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="35C-en-l68">

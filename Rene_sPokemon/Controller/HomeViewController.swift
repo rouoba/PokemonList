@@ -10,7 +10,6 @@ import UIKit
 class HomeViewController: UIViewController {
 
     @IBOutlet weak var myTableView: UITableView!
-    @IBOutlet weak var favoriteView: UIView!
     
     var dispatchGroup = DispatchGroup()
     
@@ -19,7 +18,7 @@ class HomeViewController: UIViewController {
     let increment = 30
     var numberOfPokemonDownloaded = 0
     
-    var userDefaults = UserDefaults()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,6 +114,17 @@ class HomeViewController: UIViewController {
     
     
     
+    @IBAction func displayFavoritePokemon(_ sender: UIButton) {
+        //display favorite in a pop up
+        if userDefaults.value(forKey: "favorite") != nil {
+            displayAlert(messageTitle: "You should not forget that!", messageContent: "\(userDefaults.value(forKey: "favorite") ?? "") is your favorite Pokemon")
+        } else {
+            displayAlert(messageTitle: "Too bad", messageContent: "You do not have a favorite Pokemon yet.")
+        }
+    }
+    
+    
+    
     func displayAlert(messageTitle: String, messageContent: String) {
         let alertController = UIAlertController(title: messageTitle, message: messageContent, preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "Close", style: .default, handler: nil)
@@ -137,11 +147,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = myTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? PokemonCell else {return UITableViewCell()}
         
-        if listOfPokemonData.count > indexPath.row {
+        if listOfPokemonData[indexPath.row] != nil {
             cell.name.text = listOfPokemonData[indexPath.row]?.name
             cell.element.text = "Main type: \(listOfPokemonData[indexPath.row]?.types[0].type.name ?? "")"
         }
-        if listOfPokemonSprites.count > indexPath.row {
+        if listOfPokemonSprites[indexPath.row] != nil {
             cell.sprite.image = listOfPokemonSprites[indexPath.row]
         }
         return cell

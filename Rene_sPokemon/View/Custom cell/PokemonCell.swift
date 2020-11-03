@@ -14,6 +14,7 @@ class PokemonCell: UITableViewCell {
     @IBOutlet weak var element: UILabel!
     @IBOutlet weak var cellContentArea: UIStackView!
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -26,4 +27,9 @@ class PokemonCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    
+    @IBAction func likeButtonPressed(_ sender: UIButton) {
+        guard  let pokemonLiked = name.text else { return }
+        userDefaults.setValue(pokemonLiked, forKey: "favorite")
+    }
 }

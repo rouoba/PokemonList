@@ -12,6 +12,9 @@ var myResults: Result = Result()
 var listOfPokemonData: [PokemonData?] = [PokemonData?](repeating: nil, count: maximumNumberOfPokemon)
 var listOfPokemonSprites = [UIImage?](repeating: nil, count: maximumNumberOfPokemon)
 
+var userDefaults = UserDefaults()
+
+
 struct Result: Decodable {
     var next: String?
     var previous: String?  //not necessary. only needs next when prefetching
