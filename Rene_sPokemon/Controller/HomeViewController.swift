@@ -40,7 +40,7 @@ class HomeViewController: UIViewController {
     
     
     
-    //Mark:- Helpers
+    //MARK:- Helpers
     fileprivate func preparePokemonData(for vc: DetailsViewController, with indexPath: IndexPath, and pokemonSelected: PokemonData) {
         var types = "Type(s): "
         var moves = "Moves: "
@@ -135,7 +135,7 @@ class HomeViewController: UIViewController {
 
 
 
-//Mark: - Extension
+//MARK: - Extension
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
